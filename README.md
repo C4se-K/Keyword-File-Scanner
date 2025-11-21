@@ -1,97 +1,67 @@
 # Keyword File Scanner
 
-A command-line Python tool for scanning directories, counting files, and detecting keyword occurrences both in file names and in file contents.
-As it processes files, it also displays a simple real-time progress graph in the terminal.
+This is a simple command-line tool that walks a directory tree, counts how many files it contains, and searches each file for a given keyword. It reports matches found in filenames and in file contents, and prints a live progress display in the terminal as it scans.
 
-Features
+## Features
 
-Recursively walks a directory
+- Recursively scans all files under a specified root directory  
+- Counts total files before scanning  
+- Detects keyword matches in:
+  - **File names**
+  - **File contents** (up to the first 250 lines per file)
+- Tracks total occurrences of the keyword across all files  
+- Shows a live progress graph while scanning  
 
-Counts total files
+## Requirements
 
-Detects keyword matches in:
+- Python 3.8 or later
+- Windows, macOS, or Linux
+- No external dependencies beyond the Python standard library
 
-file names
+## Usage
 
-file contents (first 250 lines)
+Run the script from a terminal:
 
-Tracks total keyword occurrences over time
+```bash
+python scan.py --path "C:\path\to\search" --keyword hello
+```
 
-Displays a live, text-based progress graph while scanning
+Example (Linux/Mac):
 
-Prints summary statistics at the end
+```bash
+python3 scan.py --path ~/projects --keyword TODO
+```
 
-Requirements
+## Command Line Arguments
 
-Python 3.8 or later
+| Argument       | Description                                  | Required |
+|----------------|----------------------------------------------|----------|
+| `--path`       | Root directory to scan                       | Yes      |
+| `--keyword`    | Keyword (case-insensitive) to search for     | Yes      |
 
-Windows, macOS, or Linux terminal
+## Output
 
-No external packages are required.
+During the scan you’ll see a live text display that updates with:
 
-Installation
+- Number of files processed vs total  
+- Keyword occurrences so far  
+- A simple visual marker showing progress  
 
-Clone the repository:
+At the end, the script prints a summary:
 
-git clone https://github.com/<your-username>/<your-repo>.git
-cd <your-repo>
+```
+<total_files> <matched_file_names> <matched_file_content>
+```
 
+## Notes
 
-(Optional) Create a virtual environment:
+- The script is **not yet packaged as a Windows `.exe`**, but it is structured so it can be built with PyInstaller when desired.
+- Files are read in text mode with ignored decode errors, so binary files are skipped safely.
+- Only the first 250 lines of each file are inspected to keep scanning fast.
 
-python -m venv venv
-venv\Scripts\activate    # Windows
-# or
-source venv/bin/activate # macOS/Linux
+## Future Enhancements
 
-Usage
-
-Run the script directly with Python:
-
-python scan.py --path "C:\your\directory" --keyword hello
-
-
-Example:
-
-```bash python scan.py --path "C:\dev" --keyword error```
-
-Arguments
-Flag	Description	Example
---path	Root directory to scan	--path "C:\dev"
---keyword	Keyword to search for	--keyword test
-
-The tool automatically counts files, scans them, displays real-time progress, and prints a summary after completion.
-
-### Output Example
-
-During scanning, you’ll see a live progress graph:
-#todo
-L_______________________________________
-0         1000         2000         4000
-files scanned: 1438 / 5820
-
-keyword: test occurrences so far: 57
-
-
-And at the end:
-
-5820  48  19
-
-
-Where the three numbers are:
-
-Total files scanned
-
-Files with keyword in their name
-
-Files with keyword in their content
-
-## Planned Enhancements
-
-Build a standalone Windows .exe using PyInstaller
-
-Add configuration flags (e.g., max content lines, file type filters)
-
-Add optional JSON or CSV output
-
-Improve graph scaling and readability
+- Windows `.exe` packaging  
+- Optional logging to a file  
+- Configurable scan depth and line-limit  
+- Colorized terminal output  
