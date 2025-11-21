@@ -41,6 +41,26 @@ def check_file(file):
 
 def display_graph(count=1):
     os.system('cls' if os.name == 'nt' else 'clear')
+    """
+    data = occurrence_time
+    if len(data) >= width:
+        step = len(data) // width
+        sampled = [data[i] for i in range(0, len(data), step)][:width]
+    else:
+        sampled = data
+
+    max_val = max(sampled) if sampled else 1
+    scaled = [int((val / max_val) * (height - 1)) for val in sampled]
+
+    grid = [[" " for _ in range(width)] for _ in range(height)]
+
+    for x, y in enumerate(scaled):
+        plot_y = height - 1 - y   # invert vertically
+        grid[plot_y][x] = "*"
+
+    for row in grid:
+        print("|" + "".join(row))
+    """
 
     quarter = count // 4
     print(f"L{'_'*39}")
